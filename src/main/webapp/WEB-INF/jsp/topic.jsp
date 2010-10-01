@@ -1,13 +1,17 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/WEB-INF/jsp/includes.jsp" %>
+<%@ include file="/WEB-INF/jsp/header.jsp" %>
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>A list of topics might be a good idea</h1>
-    </body>
-</html>
+
+<h1>A list of topics might be a good idea</h1>
+
+<div>topic</div>
+<c:forEach var="topic" items="${topics}">
+  <div><a href="topic.htm?topicId=${topic.id}">${topic.name}</a></div>
+  <div id="suggestions">
+      <c:forEach var="suggestion" items="${topic.suggestions}">
+          ${suggestion.name} &nbsp;
+      </c:forEach>
+  </div>
+</c:forEach>
+
+<%@ include file="/WEB-INF/jsp/footer.jsp" %>

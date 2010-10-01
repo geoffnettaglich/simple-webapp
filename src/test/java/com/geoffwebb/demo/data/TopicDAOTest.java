@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.geoffwebb.demo.data.TopicDAO;
 import com.geoffwebb.demo.model.Suggestion;
 import com.geoffwebb.demo.model.Topic;
+import java.util.Collection;
+import org.junit.After;
 
 //@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @ContextConfiguration(locations = {"classpath:spring/test-data.xml", "classpath:spring/test-dao.xml"})
@@ -27,7 +29,6 @@ public class TopicDAOTest
     @Test
     public void saveNewTopicShouldReturnATopicWithAnId()
     {
-        
         Topic topic = new Topic();
         assertThat(topic.getId(), nullValue());
         
@@ -89,5 +90,30 @@ public class TopicDAOTest
         
         savedTopic = topicDao.findById(id);
         assertThat(savedTopic, nullValue());
+    }
+
+    /**
+     * TODO Bring this test back once setup and teardown work properly
+     * @Test
+     */
+    public void gettingAnEmptyListOfTopicsShouldFailGracefully() {
+        List<Topic> topics = topicDao.findAll();
+        assertThat(topics.size(), equalTo(0));
+    }
+
+    /**
+     * TODO Bring this test back once setup and teardown work properly
+     * @Test
+     */
+    public void gettingAListOfTopics() {
+        Topic topic1 = new Topic();
+        topic1.setName("talk1");
+        Topic topic2 = new Topic();
+        topic1.setName("talk2");
+        topicDao.save(topic1);
+        topicDao.save(topic2);
+        List<Topic> topics = topicDao.findAll();
+        assertThat(topics, notNullValue());
+        assertThat(topics.size(), equalTo(2));
     }
 }
