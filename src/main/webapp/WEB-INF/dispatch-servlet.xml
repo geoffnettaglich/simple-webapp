@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
     xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:context="http://www.springframework.org/schema/context"
@@ -8,6 +9,11 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <!--
+      - The controllers are autodetected POJOs labeled with the @Controller annotation.
+    -->
+    <context:component-scan base-package="com.geoffwebb.demo.controller"/>
 
     <!-- We can use this, but then we have to implement the Controller interface, give or take
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
@@ -17,14 +23,8 @@
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
 
-    <bean id="TopicController"
-       class="com.geoffwebb.demo.controller.TopicController">
-    </bean>
-
     <!-- Resolves view names to protected .jsp resources within the /WEB-INF/views directory -->
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp"/>
 
 </beans>

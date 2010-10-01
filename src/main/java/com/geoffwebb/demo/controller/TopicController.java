@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value="/")
+@RequestMapping(value="/topic.htm")
 public class TopicController
 {
     @RequestMapping(method=RequestMethod.GET)
     public String show() 
     {
-        return "index";
+        return "topic";
     }
 }
