@@ -8,10 +8,23 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
-       
+
+    <!-- We can use this, but then we have to implement the Controller interface, give or take
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
-    
-    <bean id="topicController"
-       class="com.blastradius.demo.controller.TopicController">
+    -->
+
+    <!-- Depending upon preference you can use annotations, which is what we're doing here -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+
+    <bean id="TopicController"
+       class="com.geoffwebb.demo.controller.TopicController">
     </bean>
+
+    <!-- Resolves view names to protected .jsp resources within the /WEB-INF/views directory -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
 </beans>
